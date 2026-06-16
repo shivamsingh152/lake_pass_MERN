@@ -43,4 +43,7 @@ coverage/
 # Misc
 *.tgz
 .npmrc
-.env.production.local
+.env.production.localgit rm --cached server/.env
+git rm --cached server/.env.example
+git commit -m "Remove .env files from tracking"
+git push origin master
