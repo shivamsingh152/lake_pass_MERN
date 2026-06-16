@@ -1,1 +1,46 @@
-node_modules
+# Dependencies
+node_modules/
+yarn.lock
+package-lock.json
+
+# Environment variables (DO NOT COMMIT - contains secrets)
+.env
+.env.local
+.env.*.local
+
+# Build outputs
+dist/
+build/
+.next/
+out/
+
+# Logs
+npm-debug.log*
+npm-err.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+lerna-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+.folder
+
+# IDE/Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.sublime-project
+*.sublime-workspace
+
+# Testing
+coverage/
+.nyc_output/
+
+# Misc
+*.tgz
+.npmrc
+.env.production.local
