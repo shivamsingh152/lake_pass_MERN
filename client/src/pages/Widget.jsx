@@ -6,8 +6,23 @@ export default function Widget() {
   const { user } = useAuth();
   const [copied, setCopied] = useState(false);
   const slug = user?.marina?.slug || 'your-marina';
-  const widgetUrl = `http://localhost:5174?marina=${slug}`;
-  const embedCode = `<iframe src="${widgetUrl}" width="100%" height="700" frameborder="0" style="border:none;border-radius:12px;"></iframe>`;
+  
+  // Determine widget URL based on environment
+  const getWidgetUrl = () => {
+    const isProduction = window.location.hostname !== 'localhost' && !window.location.hostname.includes('127.0.0.1');
+    
+    if (isProduction) {
+      // Production: Use the widget deployment URL
+      const widgetHost = import.meta.env.VITE_WIDGET_URL || 'https://lake-pass-widget.vercel.app';
+      return `${widgetHost}?marina=${slug}`;
+    } else {
+      // Development: Use localhost
+      return `http://localhost:5174?marina=${slug}`;
+    }
+  };
+  
+  const widgetUrl = getWidgetUrl();
+  const embedCode = `<iframe src="${widgetUrl}" width="100%" height="700" frameborder="0" style="border:none;border-radius:12px;box-shadow:0 4px 6px rgba(0,0,0,0.1);"></iframe>`;
 
   const copyCode = () => {
     navigator.clipboard.writeText(embedCode);
@@ -18,40 +33,44 @@ export default function Widget() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold">Embeddable Booking Widget</h1>
-        <p className="text-slate-500">Embed Lake Pass booking on your marina website</p>
+        <h1 className="text-2xl font-bold text-slate-900">Embeddable Booking Widget</h1>
+        <p className="text-slate-600 text-sm mt-1">Embed Lake Pass booking on your marina website</p>
       </div>
 
       <div className="card p-6 space-y-4">
-        <h2 className="font-semibold flex items-center gap-2">
+        <h2 className="font-semibold text-slate-900 flex items-center gap-2">
           <Code className="w-5 h-5 text-lake-600" /> Embed Code
         </h2>
         <p className="text-sm text-slate-600">
           Copy and paste this code into your marina website to enable online boat bookings.
         </p>
         <div className="relative">
-          <pre className="bg-slate-900 text-green-400 p-4 rounded-lg text-sm overflow-x-auto">{embedCode}</pre>
-          <button onClick={copyCode} className="absolute top-3 right-3 btn-secondary text-xs">
-            {copied ? <><Check className="w-3 h-3" /> Copied!</> : <><Copy className="w-3 h-3" /> Copy</>}
+          <pre className="bg-slate-900 text-green-400 p-4 rounded-lg text-xs sm:text-sm overflow-x-auto font-mono">{embedCode}</pre>
+          <button onClick={copyCode} className="absolute top-3 right-3 btn-secondary text-xs hover:bg-slate-100 transition-colors">
+            {copied ? <><Check className="w-4 h-4" /> Copied!</> : <><Copy className="w-4 h-4" /> Copy</>}
           </button>
         </div>
       </div>
 
-      <div className="card p-6">
-        <h2 className="font-semibold mb-4">Widget Preview</h2>
-        <iframe
-          src={widgetUrl}
-          width="100%"
-          height="700"
-          style={{ border: 'none', borderRadius: '12px', background: '#f8fafc' }}
-          title="Booking Widget Preview"
-        />
+      <div className="card p-6 space-y-4">
+        <h2 className="font-semibold text-slate-900">Widget Preview</h2>
+        <p className="text-xs sm:text-sm text-slate-600">This is how the widget appears on your website:</p>
+        <div className="bg-gradient-to-b from-slate-100 to-slate-200 rounded-lg overflow-hidden">
+          <iframe
+            src={widgetUrl}
+            width="100%"
+            height="700"
+            style={{ border: 'none', borderRadius: '12px' }}
+            title="Booking Widget Preview"
+            loading="lazy"
+          />
+        </div>
       </div>
 
-      <div className="card p-6 bg-lake-50 border-lake-200">
+      <div className="card p-6 bg-gradient-to-br from-lake-50 to-blue-50 border-lake-200">
         <h3 className="font-semibold text-lake-900">Direct Link</h3>
-        <p className="text-sm text-lake-700 mt-1">
-          Share this link: <a href={widgetUrl} target="_blank" rel="noreferrer" className="underline">{widgetUrl}</a>
+        <p className="text-sm text-lake-700 mt-2">
+          Share this link: <a href={widgetUrl} target="_blank" rel="noreferrer" className="font-semibold underline hover:text-lake-800 transition-colors">{widgetUrl}</a>
         </p>
       </div>
     </div>
