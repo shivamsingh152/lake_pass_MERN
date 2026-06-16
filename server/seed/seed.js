@@ -86,7 +86,7 @@ const boatsByMarina = [
 
 async function seed() {
   try {
-    await mongoose.connect(process.env.MONGODB_URI);
+    await mongoose.connect(process.env.MONGODB_URI, { dbName: 'lakepass' });
     console.log('Connected to MongoDB');
 
     await Promise.all([

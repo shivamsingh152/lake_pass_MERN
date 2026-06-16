@@ -2,13 +2,10 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Anchor, Ship, Calendar, CreditCard, CheckCircle } from 'lucide-react';
 import axios from 'axios';
+import { getApiBaseUrl } from '../utils/apiBase';
 import { formatCurrency, boatTypes } from '../utils/format';
 
-const isVercelPreview = typeof window !== 'undefined' && window.location.hostname.endsWith('.vercel.app');
-const deployedApiBase = 'https://lake-pass-mern.vercel.app/api';
-const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || (isVercelPreview ? deployedApiBase : '/api'),
-});
+const api = axios.create({ baseURL: getApiBaseUrl() });
 
 export default function ConsumerBooking() {
   const { slug } = useParams();

@@ -1,10 +1,8 @@
 import axios from 'axios';
-
-const isVercelPreview = typeof window !== 'undefined' && window.location.hostname.endsWith('.vercel.app');
-const deployedApiBase = 'https://lake-pass-mern.vercel.app/api';
+import { getApiBaseUrl } from '../utils/apiBase';
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || (isVercelPreview ? deployedApiBase : '/api'),
+  baseURL: getApiBaseUrl(),
   headers: { 'Content-Type': 'application/json' },
 });
 

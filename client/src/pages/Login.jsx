@@ -69,10 +69,6 @@ export default function Login() {
             </Link>
           </p>
         </div>
-
-        <p className="text-center text-lake-300 text-xs mt-6">
-          Demo login: owner@sunsetbay.com / password123
-        </p>
       </div>
     </div>
   );
