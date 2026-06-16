@@ -35,10 +35,10 @@ export default function Dashboard() {
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-bold text-slate-900">Dashboard</h1>
-        <p className="text-slate-500">Welcome back! Here&apos;s your marina overview.</p>
+        <p className="text-slate-600 text-sm mt-1">Welcome back! Here's your marina overview.</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {stats.map(({ label, value, icon: Icon, color }) => (
           <div key={label} className="card p-6">
             <div className="flex items-center justify-between">
