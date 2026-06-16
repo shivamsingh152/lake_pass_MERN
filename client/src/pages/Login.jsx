@@ -5,8 +5,8 @@ import { useAuth } from '../context/AuthContext';
 
 export default function Login() {
   const { user, login } = useAuth();
-  const [email, setEmail] = useState('owner@sunsetbay.com');
-  const [password, setPassword] = useState('password123');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -43,14 +43,14 @@ export default function Login() {
               {error}
             </div>
           )}
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4" autoComplete="off">
             <div>
               <label className="label">Email</label>
-              <input type="email" className="input" value={email} onChange={(e) => setEmail(e.target.value)} required />
+              <input name="email" type="email" className="input" value={email} onChange={(e) => setEmail(e.target.value)} required autoComplete="email" />
             </div>
             <div>
               <label className="label">Password</label>
-              <input type="password" className="input" value={password} onChange={(e) => setPassword(e.target.value)} required />
+              <input name="password" type="password" className="input" value={password} onChange={(e) => setPassword(e.target.value)} required autoComplete="current-password" />
             </div>
             <button type="submit" className="btn-primary w-full" disabled={loading}>
               {loading ? 'Signing in...' : 'Sign In'}
