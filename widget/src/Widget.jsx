@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const api = axios.create({ baseURL: '/api' });
+const isVercelPreview = typeof window !== 'undefined' && window.location.hostname.endsWith('.vercel.app');
+const deployedApiBase = 'https://lake-pass-mern.vercel.app/api';
+const api = axios.create({
+  baseURL: import.meta.env.VITE_API_URL || (isVercelPreview ? deployedApiBase : '/api'),
+});
 
 const boatTypes = {
   pontoon: 'Pontoon', fishing: 'Fishing', ski: 'Ski Boat', yacht: 'Yacht',
