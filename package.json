@@ -11,7 +11,7 @@
     "dev:client": "cd client && npm run dev",
     "dev:widget": "cd widget && npm run dev",
     "seed": "cd server && npm run seed",
-    "build": "cd client && npm run build && cd ../widget && npm run build"
+    "build": "npm run install:all && cd client && npm run build && cd ../widget && npm run build"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"
