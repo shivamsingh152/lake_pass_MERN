@@ -1,0 +1,19 @@
+{
+  "name": "lake-pass",
+  "version": "1.0.0",
+  "description": "Lake Pass - Marina management platform MVP",
+  "private": true,
+  "scripts": {
+    "install:all": "npm install && cd server && npm install && cd ../client && npm install && cd ../widget && npm install",
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:all": "concurrently \"npm run dev:server\" \"npm run dev:client\" \"npm run dev:widget\"",
+    "dev:server": "cd server && npm run dev",
+    "dev:client": "cd client && npm run dev",
+    "dev:widget": "cd widget && npm run dev",
+    "seed": "cd server && npm run seed",
+    "build": "cd client && npm run build && cd ../widget && npm run build"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
